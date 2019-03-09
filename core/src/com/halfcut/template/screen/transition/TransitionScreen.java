@@ -6,8 +6,6 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.halfcut.template.App;
 import com.halfcut.template.screen.Screen;
 import com.halfcut.template.screen.transition.effect.TransitionEffect;
-import com.halfcut.template.screen.transition.effect.fade.FadeInEffect;
-import com.halfcut.template.screen.transition.effect.fade.FadeOutEffect;
 import com.halfcut.template.screen.transition.effect.swipe.SwipeInEffect;
 import com.halfcut.template.screen.transition.effect.swipe.SwipeOutEffect;
 

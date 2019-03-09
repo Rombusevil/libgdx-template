@@ -6,6 +6,7 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 
 /**
@@ -18,6 +19,7 @@ public class Assets {
 
     static private Assets instance;
     private AssetManager assets;
+    private TextureAtlas textureAtlas;
 
     static public Assets get() {
         if(instance == null) {
@@ -28,6 +30,13 @@ public class Assets {
 
     public Texture getTexture(String ref) {
         return assets.get(ref, Texture.class);
+    }
+
+    public TextureRegion findTextureRegion(String ref) {
+        if(textureAtlas == null){
+            textureAtlas = getAtlas();
+        }
+        return textureAtlas.findRegion(ref);
     }
 
     public BitmapFont getFont(String ref) {
