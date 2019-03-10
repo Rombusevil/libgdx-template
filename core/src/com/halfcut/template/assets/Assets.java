@@ -28,6 +28,10 @@ public class Assets {
         return instance;
     }
 
+    public AssetManager getAssetManager() {
+        return this.assets;
+    }
+
     public Texture getTexture(String ref) {
         return assets.get(ref, Texture.class);
     }

@@ -38,7 +38,8 @@ public class LoadingScreen extends Screen {
         assets = new AssetManager();
         assets.setLoader(TiledMap.class, new TmxMapLoader(new InternalFileHandleResolver()));
         assets.load("packed/textures.atlas", TextureAtlas.class);
-        
+        assets.load("fonts/pico8_05.fnt", BitmapFont.class);
+
         /**
          * Load everything here...
          */

@@ -8,11 +8,10 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.halfcut.template.screen.LoadingScreen;
 
 public class App extends Game {
-
-    static final public String TITLE = "libGDX Template";
-    static final public int WIDTH  = 200;
-    static final public int HEIGHT = 150;
-    static final public int SCALE  = 2;
+    static final public String TITLE = "GAME XYZ";
+    static final public int WIDTH  = 128; //800;
+    static final public int HEIGHT = 128; //450;
+    static final public int SCALE  = 5;
     static public boolean DEV_MODE;
 
     public enum Mode { DESKTOP, HTML }
@@ -43,5 +42,4 @@ public class App extends Game {
         sb.dispose();
         sr.dispose();
     }
-
 }
