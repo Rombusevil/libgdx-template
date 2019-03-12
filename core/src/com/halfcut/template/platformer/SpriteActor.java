@@ -9,28 +9,27 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.ObjectMap;
 
 public abstract class SpriteActor extends Actor {
-    protected boolean debugShape;
+    protected boolean debugShape, flipX, flipY;
+    protected float scaleX, scaleY, rotation, spriteCenterX, spriteCenterY;
     protected ObjectMap<String, AnimationMetadata> animations;
     protected AnimationMetadata curAnimation;
     private float stateTime = 0;
 
-    private class AnimationMetadata{
-        Animation animation;
-        boolean loops;
-
-        AnimationMetadata(Animation animation, boolean loops){
-            this.animation = animation;
-            this.loops = loops;
-        }
-    }
-
     public SpriteActor(float x, float y, int width, int height){
         super(x, y, width, height);
-        this.animations = new ObjectMap<String, AnimationMetadata>();
-        this.debugShape = false;
+        animations = new ObjectMap<String, AnimationMetadata>();
+        debugShape = flipX = flipY = false;
+        scaleX = scaleY = 1;
+        rotation = 0;
+        spriteCenterX = this.boundingBox.width/2;
+        spriteCenterY = this.boundingBox.width/2;
     }
     public void setDebugShape(boolean debug){this.debugShape=debug;}
     public void setAnimation(String name){this.curAnimation = animations.get(name);}
+    public void setFlipX(boolean doFlip){this.flipX = doFlip;}
+    public void setFlipY(boolean doFlip){this.flipY = doFlip;}
+    public void setRotation(float rotation){this.rotation = rotation;}
+    public void setScale(float sx, float sy){this.scaleX = sx; this.scaleY = sy;}
 
     public void createAnimation(String name, TextureRegion spriteSheet, int width, int height, float frameDuration, boolean loops){
         int cols = spriteSheet.getRegionWidth()/width;
@@ -59,7 +58,16 @@ public abstract class SpriteActor extends Actor {
         Animation animation = this.curAnimation.animation;
         TextureRegion curFrame = (TextureRegion)animation.getKeyFrame(this.stateTime, this.curAnimation.loops);
 
-        sb.draw(curFrame, this.boundingBox.x, this.boundingBox.y);
+        if((this.flipX && this.scaleX > 0) || (!this.flipX && this.scaleX < 0)) this.scaleX = 0 - this.scaleX;
+        if((this.flipY && this.scaleY > 0) || (!this.flipY && this.scaleY < 0)) this.scaleY = 0 - this.scaleY;
+        sb.draw(
+            curFrame,
+            this.boundingBox.x, this.boundingBox.y,
+            this.spriteCenterX, this.spriteCenterY,
+            this.boundingBox.width, this.boundingBox.height,
+            this.scaleX, this.scaleY,
+            this.rotation
+        );
     }
 
     @Override
@@ -67,6 +75,16 @@ public abstract class SpriteActor extends Actor {
         if(this.debugShape){
             sr.setColor(Color.VIOLET);
             sr.rect(this.boundingBox.x, this.boundingBox.y, this.boundingBox.width, this.boundingBox.height);
+        }
+    }
+
+    private class AnimationMetadata{
+        Animation animation;
+        boolean loops;
+
+        AnimationMetadata(Animation animation, boolean loops){
+            this.animation = animation;
+            this.loops = loops;
         }
     }
 }
