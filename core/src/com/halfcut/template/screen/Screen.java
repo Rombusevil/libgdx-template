@@ -58,7 +58,8 @@ public abstract class Screen implements com.badlogic.gdx.Screen {
         update(delta * 60);
 
         sceneFrameBuffer.begin();
-            Gdx.gl.glClearColor(Palette.INK.r, Palette.INK.g, Palette.INK.b, 1);
+            Color bg = Color.TEAL;
+            Gdx.gl.glClearColor(bg.r, bg.g, bg.b, 1);
             Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
             Gdx.gl.glEnable(GL20.GL_BLEND);
             Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
