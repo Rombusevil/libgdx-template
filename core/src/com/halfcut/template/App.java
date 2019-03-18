@@ -12,6 +12,8 @@ public class App extends Game {
     static final public int WIDTH  = 128; //800;
     static final public int HEIGHT = 128; //450;
     static final public int SCALE  = 5;
+    static final public int MIDDLE_WIDHT  = WIDTH / 2;
+    static final public int MIDDLE_HEIGHT = HEIGHT / 2;
     static public boolean DEV_MODE;
 
     public enum Mode { DESKTOP, HTML }

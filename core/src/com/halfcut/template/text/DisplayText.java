@@ -1,4 +1,4 @@
-package com.halfcut.template.util;
+package com.halfcut.template.text;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -10,9 +10,11 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
  */
 public class DisplayText {
     private BitmapFont font;
+    public float fontHeightPx;
 
-    public DisplayText(BitmapFont font){
+    public DisplayText(BitmapFont font, float fontHeight){
         this.font = font;
+        this.fontHeightPx = fontHeight;
     }
 
     public void write(SpriteBatch sb, String text, int x, int y, Color color){

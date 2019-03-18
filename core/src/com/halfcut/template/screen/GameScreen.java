@@ -1,16 +1,17 @@
 package com.halfcut.template.screen;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.halfcut.template.App;
+import com.halfcut.template.SpriteShapes.RectangleRenderer;
 import com.halfcut.template.assets.Assets;
 import com.halfcut.template.game.Hero;
-import com.halfcut.template.util.DisplayText;
+import com.halfcut.template.text.DisplayText;
+import com.halfcut.template.text.TextBubble;
 
 import static com.halfcut.template.App.HEIGHT;
 import static com.halfcut.template.App.WIDTH;
@@ -27,9 +28,12 @@ public class GameScreen extends Screen {
     private float boxY     = (HEIGHT - boxSize) / 2;
     private float boxTheta = 0.0f;
 
-    private TextureRegion chobi;
+    private RectangleRenderer rect;
     private DisplayText displayText;
     private Hero h;
+    private TextBubble tb;
+    private TextureRegion heroFace, timotyFace;
+    private Texture heroFaceTx;
 
     public GameScreen(App app) {
         super(app);
@@ -37,11 +41,14 @@ public class GameScreen extends Screen {
         System.out.println(ass.getAssetManager().getAssetNames());
 
 
-        chobi = ass.findTextureRegion("run");
+        rect = new RectangleRenderer();
         h = new Hero(ass, 70, 20);
+        tb = new TextBubble(rect, 2, 90, 124, 19);
+        heroFace = ass.findTextureRegion("hero_face");
+        timotyFace = ass.findTextureRegion("timoty_face");
 
         BitmapFont font = ass.getFont("fonts/pico8_05.fnt");
-        displayText = new DisplayText(font);
+        displayText = new DisplayText(font, 6.3f);
     }
 
     @Override
@@ -61,16 +68,31 @@ public class GameScreen extends Screen {
             //sb.draw(chobi, 10,10);
 
             h.drawSpriteBatch(sb);
+            rect.drawLine(sb, 10, 100, 50,25, 1, Color.VIOLET, Color.BLACK);
+            rect.drawFilled(sb, 30, 10, 10, 50, Color.GREEN);
 
             int x = 10;
             int y = 50;
             displayText.write(sb, "Normal", x, y+20, Color.WHITE);
             displayText.writeShadow(sb, "Shadowed", x, y, Color.WHITE, Color.BLUE);
             displayText.writeBold(sb, "Bold", x, y+10, Color.WHITE, Color.BLUE);
+
+            int textHeight = 6;
+            /*Line 1*/ displayText.write(sb, "ut semper elementum metus ac sa", 2, textHeight*3, Color.WHITE);
+            /*Line 2*/ displayText.write(sb, "ut semper elementum metus ac sa", 2, textHeight*2, Color.WHITE);
+            /*Line 3*/ displayText.write(sb, "ut semper elementum metus ac sa", 2, textHeight, Color.WHITE);
+
+            tb.draw(sb, displayText,
+                    "are you ready for the summer?" +
+                        "\nare you ready for some fun?" +
+                        "\nare you ready for the na na na",
+                    Color.RED, Color.SLATE, timotyFace);
+
         sb.end();
 
         // Draw the box
         sr.begin(ShapeRenderer.ShapeType.Line);
+            /*
             sr.setColor(Color.PINK);
             sr.rect(boxX, boxY, boxSize * 0.5f, boxSize * 0.5f, boxSize, boxSize, 1, 1, boxTheta);
 
@@ -79,6 +101,7 @@ public class GameScreen extends Screen {
             sr.setColor(Color.YELLOW);
             sr.rect(100,100, 27,27);
 
+            */
             h.drawShapeRenderer(sr);
         sr.end();
     }
