@@ -14,7 +14,6 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.math.Matrix4;
 import com.halfcut.template.App;
 import com.halfcut.template.assets.Assets;
-import com.halfcut.template.util.Palette;
 
 /**
  * @author halfcutdev
@@ -26,23 +25,18 @@ public class LoadingScreen extends Screen {
     static final public int BAR_HEIGHT       =  2;
     static final public int BORDER_GAP       =  1;
     static final public int BORDER_THICKNESS =  1;
-    static final public Color BACKGROUND_COLOUR = Palette.INK.cpy();
+    static final public Color BACKGROUND_COLOUR = Color.BLUE;
 
     private AssetManager assets;
     private boolean loaded;
 
     public LoadingScreen(App app) {
         super(app);
-
-        // Initialise specialised loaders.
         assets = new AssetManager();
         assets.setLoader(TiledMap.class, new TmxMapLoader(new InternalFileHandleResolver()));
-        assets.load("packed/textures.atlas", TextureAtlas.class);
-        assets.load("fonts/pico8_05.fnt", BitmapFont.class);
 
-        /**
-         * Load everything here...
-         */
+        assets.load("packed/textures.atlas", TextureAtlas.class);
+        loadFont("fonts/pico8_05.fnt");
     }
 
     @Override
@@ -108,23 +102,16 @@ public class LoadingScreen extends Screen {
         sr.end();
     }
 
-
-    // Load.
-    
     private void loadFont(String ref) {
         assets.load(ref, BitmapFont.class);
     }
-
     private void loadMap(String ref) {
         assets.load(ref, TiledMap.class);
     }
-
     private void loadSFX(String ref) {
         assets.load(ref, Sound.class);
     }
-
     private void loadTexture(String ref) {
         assets.load(ref, Texture.class);
     }
-
 }

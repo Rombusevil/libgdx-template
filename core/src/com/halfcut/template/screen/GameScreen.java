@@ -21,13 +21,6 @@ import static com.halfcut.template.App.WIDTH;
  * @since 22/12/2017
  */
 public class GameScreen extends Screen {
-
-    // Spinning box example.
-    private float boxSize  = 10;
-    private float boxX     = (WIDTH  - boxSize) / 2;
-    private float boxY     = (HEIGHT - boxSize) / 2;
-    private float boxTheta = 0.0f;
-
     private RectangleRenderer rect;
     private DisplayText displayText;
     private Hero h;
@@ -37,24 +30,21 @@ public class GameScreen extends Screen {
 
     public GameScreen(App app) {
         super(app);
-        Assets ass = Assets.get();
-        System.out.println(ass.getAssetManager().getAssetNames());
-
+        Assets assets = Assets.get();
+        System.out.println(assets.getAssetManager().getAssetNames());
 
         rect = new RectangleRenderer();
-        h = new Hero(ass, 70, 20);
+        h = new Hero(assets, 70, 20);
         tb = new TextBubble(rect, 2, 90, 124, 19);
-        heroFace = ass.findTextureRegion("hero_face");
-        timotyFace = ass.findTextureRegion("timoty_face");
+        heroFace = assets.findTextureRegion("hero_face");
+        timotyFace = assets.findTextureRegion("timoty_face");
 
-        BitmapFont font = ass.getFont("fonts/pico8_05.fnt");
+        BitmapFont font = assets.getFont("fonts/pico8_05.fnt");
         displayText = new DisplayText(font, 6.3f);
     }
 
     @Override
     public void update(float delta) {
-        boxTheta -= 2f * delta;
-        boxSize += (Math.sin(boxTheta)/2)*0.5;
         h.update(delta);
     }
 
@@ -93,14 +83,10 @@ public class GameScreen extends Screen {
         // Draw the box
         sr.begin(ShapeRenderer.ShapeType.Line);
             /*
-            sr.setColor(Color.PINK);
-            sr.rect(boxX, boxY, boxSize * 0.5f, boxSize * 0.5f, boxSize, boxSize, 1, 1, boxTheta);
-
             sr.setColor(Color.VIOLET);
             sr.line(0,0,127,127);
             sr.setColor(Color.YELLOW);
             sr.rect(100,100, 27,27);
-
             */
             h.drawShapeRenderer(sr);
         sr.end();

@@ -12,7 +12,6 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.halfcut.template.App;
 import com.halfcut.template.screen.transition.TransitionScreen;
-import com.halfcut.template.util.Palette;
 import com.halfcut.template.util.Shader;
 
 import static com.halfcut.template.App.HEIGHT;
@@ -42,7 +41,7 @@ public abstract class Screen implements com.badlogic.gdx.Screen {
         sceneFrameBuffer.getColorBufferTexture().setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
 
         sceneCamera = new OrthographicCamera(WIDTH, HEIGHT);
-        sceneCamera.position.set(WIDTH / 2, HEIGHT / 2, 0);
+        sceneCamera.position.set((float)WIDTH / 2, (float)HEIGHT / 2, 0);
         sceneCamera.update();
 
         viewportCamera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
@@ -84,7 +83,7 @@ public abstract class Screen implements com.badlogic.gdx.Screen {
             app.sb.setProjectionMatrix(viewportCamera.combined);
             pixelShader.setUniformf("u_textureSizes", WIDTH, HEIGHT, SCALE, 0.0f);
             pixelShader.setUniformf("u_sampleProperties", subpixelX, subpixelY, upscaleOffsetX, upscaleOffsetY);
-            app.sb.draw(sceneFrameBuffer.getColorBufferTexture(), (SCALE * WIDTH - WIDTH) / 2, (SCALE * HEIGHT - HEIGHT) / 2, WIDTH, HEIGHT,0, 0, 1f, 1f);
+            app.sb.draw(sceneFrameBuffer.getColorBufferTexture(), (float)(SCALE * WIDTH - WIDTH) / 2, (float)(SCALE * HEIGHT - HEIGHT) / 2, WIDTH, HEIGHT,0, 0, 1f, 1f);
         app.sb.end();
 
         app.sb.setShader(null);
