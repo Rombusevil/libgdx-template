@@ -3,7 +3,7 @@
 <module rename-to="html">
 	<inherits name='com.badlogic.gdx.backends.gdx_backends_gwt' />
 
-    <inherits name='com.halfcut.template.GdxDefinition' />
+    <inherits name='com.rombosaur.jsff.GdxDefinition' />
     
     <collapse-all-properties />
     

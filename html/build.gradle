@@ -7,8 +7,8 @@ gwt {
     minHeapSize="1G"
 
     src = files(file("src/")) // Needs to be in front of "modules" below.
-    modules 'com.halfcut.template.GdxDefinition'
-    devModules 'com.halfcut.template.GdxDefinitionSuperdev'
+    modules 'com.rombosaur.jsff.GdxDefinition'
+    devModules 'com.rombosaur.jsff.GdxDefinitionSuperdev'
     project.webAppDirName = 'webapp'
 
     compiler {
