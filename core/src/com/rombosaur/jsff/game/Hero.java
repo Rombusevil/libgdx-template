@@ -3,8 +3,8 @@ package com.rombosaur.jsff.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.rombosaur.jsff.assets.Assets;
-import com.rombosaur.jsff.platformer.AnimationFinishedCallback;
-import com.rombosaur.jsff.platformer.SpriteActor;
+import com.rombosaur.jsff.engine.AnimationFinishedCallback;
+import com.rombosaur.jsff.engine.SpriteActor;
 
 public class Hero extends SpriteActor {
     private boolean jumping = false;

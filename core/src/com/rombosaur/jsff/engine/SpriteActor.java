@@ -1,4 +1,4 @@
-package com.rombosaur.jsff.platformer;
+package com.rombosaur.jsff.engine;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;

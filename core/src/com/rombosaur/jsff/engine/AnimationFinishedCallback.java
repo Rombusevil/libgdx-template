@@ -1,4 +1,4 @@
-package com.rombosaur.jsff.platformer;
+package com.rombosaur.jsff.engine;
 
 public abstract class AnimationFinishedCallback {
     public abstract void animationFinishedCallback(SpriteActor actor);

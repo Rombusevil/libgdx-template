@@ -30,14 +30,14 @@ public class TextBubble {
         this.height = 19;
     }
 
-    public void draw(SpriteBatch sb, DisplayText displayText, String text, Color textColor, Color frameColor, TextureRegion character){
-        float yy = y - (displayText.fontHeightPx * ALLOWED_TEXT_ROWS) - 3;
+    public void draw(SpriteBatch sb, TextWriter textWriter, String text, Color textColor, Color frameColor, TextureRegion character){
+        float yy = y - (textWriter.fontHeightPx * ALLOWED_TEXT_ROWS) - 3;
         Color prevColor = sb.getColor();
         sb.setColor(frameColor);
         sb.draw(pixel, x, yy, width, height);
 
         sb.setColor(textColor);
-        displayText.write(sb, text, (int)x+1, (int)y-4, textColor);
+        textWriter.write(sb, text, (int)x+1, (int)y-4, textColor);
 
         sb.setColor(prevColor);
         if(character != null){

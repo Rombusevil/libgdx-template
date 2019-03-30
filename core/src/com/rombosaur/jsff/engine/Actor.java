@@ -1,4 +1,4 @@
-package com.rombosaur.jsff.platformer;
+package com.rombosaur.jsff.engine;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;

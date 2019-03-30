@@ -12,9 +12,9 @@ import com.rombosaur.jsff.SpriteShapes.RectangleRenderer;
 import com.rombosaur.jsff.assets.Assets;
 import com.rombosaur.jsff.game.Hero;
 import com.rombosaur.jsff.game.Npc;
-import com.rombosaur.jsff.platformer.Drawable;
-import com.rombosaur.jsff.platformer.Updateable;
-import com.rombosaur.jsff.text.DisplayText;
+import com.rombosaur.jsff.engine.Drawable;
+import com.rombosaur.jsff.engine.Updateable;
+import com.rombosaur.jsff.text.TextWriter;
 import com.rombosaur.jsff.text.TextBubble;
 import com.rombosaur.jsff.util.CollisionDetector;
 
@@ -24,7 +24,7 @@ import com.rombosaur.jsff.util.CollisionDetector;
  */
 public class GameScreen extends Screen {
     private RectangleRenderer rectangleRenderer;
-    private DisplayText textPrinter;
+    private TextWriter textPrinter;
     private Hero h;
     private Npc h2;
     private TextBubble tb;
@@ -56,7 +56,7 @@ public class GameScreen extends Screen {
         timotyFace = assets.findTextureRegion("timoty_face");
 
         BitmapFont font = assets.getFont("fonts/pico8_05.fnt");
-        textPrinter = new DisplayText(font, 6.3f);
+        textPrinter = new TextWriter(font, 6.3f);
     }
 
     @Override
@@ -89,7 +89,7 @@ public class GameScreen extends Screen {
             int y = 50;
             textPrinter.write(sb, "Normal", x, y+20, Color.WHITE);
             textPrinter.writeShadow(sb, "Shadowed", x, y, Color.WHITE, Color.BLUE);
-            textPrinter.writeBold(sb, "Bold", x, y+10, Color.WHITE, Color.BLUE);
+            textPrinter.writeBorder(sb, "Bold", x, y+10, Color.WHITE, Color.BLUE);
 
             int textHeight = 6;
             /*Line 1*/ textPrinter.write(sb, "ut semper elementum metus ac sa", 2, textHeight*3, Color.WHITE);

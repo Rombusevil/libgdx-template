@@ -1,7 +1,7 @@
 package com.rombosaur.jsff.game;
 
 import com.rombosaur.jsff.assets.Assets;
-import com.rombosaur.jsff.platformer.SpriteActor;
+import com.rombosaur.jsff.engine.SpriteActor;
 
 public class Npc extends SpriteActor {
 
