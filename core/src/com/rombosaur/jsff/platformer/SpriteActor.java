@@ -7,23 +7,22 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.ObjectMap;
-import com.rombosaur.jsff.game.AnimationFinishedCallback;
 
 public abstract class SpriteActor extends Actor {
+    private float stateTime = 0;
     protected boolean debugShape, flipX, flipY;
     protected float scaleX, scaleY, rotation, spriteCenterX, spriteCenterY;
     protected ObjectMap<String, AnimationMetadata> animations;
     protected AnimationMetadata curAnimation;
-    private float stateTime = 0;
 
-    public SpriteActor(float x, float y, int width, int height){
-        super(x, y, width, height);
+    public SpriteActor(float x, float y, int spriteWidth, int spriteHeight, int boundingBoxWidth, int boundingBoxHeight, float bbOffsetX, float bbOffsetY){
+        super(x, y, boundingBoxWidth, boundingBoxHeight, bbOffsetX, bbOffsetY);
         animations = new ObjectMap<String, AnimationMetadata>();
         debugShape = flipX = flipY = false;
         scaleX = scaleY = 1;
         rotation = 0;
-        spriteCenterX = this.boundingBox.width/2;
-        spriteCenterY = this.boundingBox.width/2;
+        spriteCenterX = (float)spriteWidth/2;
+        spriteCenterY = (float)spriteHeight/2;
     }
     public void setDebugShape(boolean debug){this.debugShape=debug;}
     public void setAnimation(String name){this.curAnimation = animations.get(name);}
@@ -45,7 +44,7 @@ public abstract class SpriteActor extends Actor {
             }
         }
         Animation<TextureRegion> animation = new Animation<TextureRegion>(frameDuration, frames);
-        AnimationMetadata adata = new AnimationMetadata(animation, frameDuration, numberOfFrames, loops, null);
+        AnimationMetadata adata = new AnimationMetadata(animation, frameDuration, numberOfFrames, loops, width, height,null);
         this.animations.put(name, adata);
         return adata;
     }
@@ -79,7 +78,7 @@ public abstract class SpriteActor extends Actor {
             curFrame,
             this.boundingBox.x, this.boundingBox.y,
             this.spriteCenterX, this.spriteCenterY,
-            this.boundingBox.width, this.boundingBox.height,
+            this.curAnimation.width, this.curAnimation.height,
             this.scaleX, this.scaleY,
             this.rotation
         );
@@ -89,7 +88,7 @@ public abstract class SpriteActor extends Actor {
     public void drawShapeRenderer(ShapeRenderer sr) {
         if(this.debugShape){
             sr.setColor(Color.VIOLET);
-            sr.rect(this.boundingBox.x, this.boundingBox.y, this.boundingBox.width, this.boundingBox.height);
+            sr.rect(this.boundingBox.x+this.bbOffsetX, this.boundingBox.y+this.bbOffsetY, this.boundingBox.width, this.boundingBox.height);
         }
     }
 
@@ -99,12 +98,15 @@ public abstract class SpriteActor extends Actor {
         float frameDuration;
         int numberOfFrames;
         boolean loops;
+        int width, height;
 
-        AnimationMetadata(Animation animation, float frameDuration, int numberOfFrames, boolean loops, AnimationFinishedCallback callback){
+        AnimationMetadata(Animation animation, float frameDuration, int numberOfFrames, boolean loops, int width, int height, AnimationFinishedCallback callback){
             this.animation = animation;
             this.callback = callback;
             this.frameDuration = frameDuration;
             this.numberOfFrames = numberOfFrames;
+            this.width = width;
+            this.height = height;
             this.loops = loops;
         }
     }

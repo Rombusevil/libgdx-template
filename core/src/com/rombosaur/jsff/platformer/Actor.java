@@ -4,11 +4,14 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 
-public abstract class Actor {
-    protected Rectangle boundingBox;
+public abstract class Actor implements Drawable, Updateable{
+    public Rectangle boundingBox;
+    public float bbOffsetX, bbOffsetY;
 
-    public Actor(float x, float y, int width, int height){
-        this.boundingBox = new Rectangle(x,y,width,height);
+    public Actor(float x, float y, int boundingBoxWidth, int boundingBoxHeight, float bbOffsetX, float bbOffsetY){
+        this.boundingBox = new Rectangle(x,y,boundingBoxWidth,boundingBoxHeight);
+        this.bbOffsetX = bbOffsetX;
+        this.bbOffsetY = bbOffsetY;
     }
 
     public void setPosition(float x, float y){this.boundingBox.setPosition(x,y);}

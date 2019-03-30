@@ -3,6 +3,7 @@ package com.rombosaur.jsff.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.rombosaur.jsff.assets.Assets;
+import com.rombosaur.jsff.platformer.AnimationFinishedCallback;
 import com.rombosaur.jsff.platformer.SpriteActor;
 
 public class Hero extends SpriteActor {
@@ -23,14 +24,14 @@ public class Hero extends SpriteActor {
     }
 
     public Hero(Assets assets, int x, int y){
-        super(x, y, 16, 16);
+        super(x, y, 16, 16,4 ,12, 7,0);
         createAnimation("run", assets.findTextureRegion("hero_run"), 16, 16, 0.1f, true);
         createAnimation("idle", assets.findTextureRegion("hero_idle"), 16, 16, 0.3f, true);
         JumpAnimationFinished j = new JumpAnimationFinished(this);
         createAnimation("jump", assets.findTextureRegion("hero_jump"), 16, 16, 0.1f, false, j);
         setAnimation("idle");
 
-        debugShape = false;
+        debugShape = true;
     }
 
     @Override
