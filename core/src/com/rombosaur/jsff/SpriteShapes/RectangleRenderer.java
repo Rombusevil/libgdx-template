@@ -20,7 +20,7 @@ public class RectangleRenderer {
         sb.setColor(prevColor);
     }
 
-    public void drawLine(SpriteBatch sb, float x, float y, int width, int height, int borderWidth, Color color, Color borderColor){
+    public void drawBordered(SpriteBatch sb, float x, float y, int width, int height, int borderWidth, Color color, Color borderColor){
         Color prevColor = sb.getColor();
         sb.setColor(borderColor);
         sb.draw(this.pixel, x, y, width, height);

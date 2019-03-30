@@ -32,13 +32,17 @@ public class DisplayText {
         this.font.draw(sb, text, x+1,y-1);
         this.font.draw(sb, text, x,y-1);
 
+        this.font.draw(sb, text, x-1,y);
+        this.font.draw(sb, text, x+1,y);
+        this.font.draw(sb, text, x,y);
+
         this.font.setColor(foregroundColor);
         this.font.draw(sb, text, x,y);
     }
 
     public void writeShadow(SpriteBatch sb, String text, int x, int y, Color foregroundColor, Color shadowColor){
         this.font.setColor(shadowColor);
-        this.font.draw(sb, text, x-1,y-1);
+        this.font.draw(sb, text, x,y-1);
 
         this.font.setColor(foregroundColor);
         this.font.draw(sb, text, x,y);

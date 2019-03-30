@@ -82,7 +82,7 @@ public class GameScreen extends Screen {
                 d.drawSpriteBatch(sb);
             }
 
-            rectangleRenderer.drawLine(sb, 10, 100, 50,25, 1, Color.VIOLET, Color.BLACK);
+            rectangleRenderer.drawBordered(sb, 10, 100, 50,25, 1, Color.VIOLET, Color.BLACK);
             rectangleRenderer.drawFilled(sb, 30, 10, 10, 50, Color.GREEN);
 
             int x = 10;
