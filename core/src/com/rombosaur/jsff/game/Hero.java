@@ -5,6 +5,7 @@ import com.badlogic.gdx.Input;
 import com.rombosaur.jsff.assets.Assets;
 import com.rombosaur.jsff.engine.AnimationFinishedCallback;
 import com.rombosaur.jsff.engine.SpriteActor;
+import com.rombosaur.jsff.util.Gamepad;
 
 public class Hero extends SpriteActor {
     private boolean jumping = false;
@@ -39,10 +40,10 @@ public class Hero extends SpriteActor {
         super.update(delta);
 
         int s = 1;
-        boolean l = Gdx.input.isKeyPressed(Input.Keys.LEFT),
-                r = Gdx.input.isKeyPressed(Input.Keys.RIGHT),
-                u = Gdx.input.isKeyPressed(Input.Keys.UP),
-                d = Gdx.input.isKeyPressed(Input.Keys.DOWN);
+        boolean l = Gamepad.isLeftKeyPressed(),
+                r = Gamepad.isRightKeyPressed(),
+                u = Gamepad.isUpKeyPressed(),
+                d = Gamepad.isDownKeyPressed();
 
         if(l){
             if(!this.flipX) this.setFlipX(true);

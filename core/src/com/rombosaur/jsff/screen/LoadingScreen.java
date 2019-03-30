@@ -45,7 +45,6 @@ public class LoadingScreen extends Screen {
             Assets.get().provide(assets);
             if(!loaded) {
                 loaded = true;
-                // transitionToScreen(new GameScreen(app));
                 transitionToScreen(new MainMenuScreen(app));
             }
         }

@@ -7,6 +7,7 @@ import com.rombosaur.jsff.App;
 import com.rombosaur.jsff.SpriteShapes.RectangleRenderer;
 import com.rombosaur.jsff.assets.Assets;
 import com.rombosaur.jsff.text.TextWriter;
+import com.rombosaur.jsff.util.Gamepad;
 import com.rombosaur.jsff.util.Pico8Colors;
 
 /**
@@ -29,7 +30,9 @@ public class MainMenuScreen extends Screen {
 
     @Override
     public void update(float delta) {
-
+        if (Gamepad.isButtonXPressed()) {
+            transitionToScreen(new GameScreen(app));
+        }
     }
 
     @Override
