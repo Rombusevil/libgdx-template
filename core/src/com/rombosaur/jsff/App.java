@@ -8,7 +8,10 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.rombosaur.jsff.screen.LoadingScreen;
 
 public class App extends Game {
-    static final public String TITLE = "GAME XYZ";
+    static final public String TITLE = "game title abc dfg";
+    static final public String SUB_TITLE = "ludum dare 45";
+    static final public String BRAND = "rombosaur studios";
+    static final public String VERSION = "v0.1";
     static final public int WIDTH  = 128; //800;
     static final public int HEIGHT = 128; //450;
     static final public int SCALE  = 5;

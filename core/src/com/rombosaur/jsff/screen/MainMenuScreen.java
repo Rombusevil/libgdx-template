@@ -36,24 +36,46 @@ public class MainMenuScreen extends Screen {
     public void draw(SpriteBatch sb, ShapeRenderer sr) {
         sb.setProjectionMatrix(getSceneCamera().combined);
         sr.setProjectionMatrix(getSceneCamera().combined);
-
-
         sb.begin();
+
         rectangleRenderer.drawFilled(sb, 0,0,App.WIDTH, App.HEIGHT, Pico8Colors.DARK_BLUE);
 
-        int frameBottomMargin = 20;
-        rectangleRenderer.drawFilled(sb, 2, 3+frameBottomMargin, App.WIDTH-4,App.HEIGHT-6-frameBottomMargin, Pico8Colors.WHITE);
-        rectangleRenderer.drawFilled(sb, 3, 2+frameBottomMargin, App.WIDTH-6,App.HEIGHT-4-frameBottomMargin, Pico8Colors.WHITE);
+        /* Frames */
+        int topMargin = 25;
+        int baseHeight = App.HEIGHT-topMargin;
+        int baseY = 22;
+        int baseX = 3;
+        rectangleRenderer.drawFrame1(sb, baseX,baseY, baseHeight, Pico8Colors.WHITE);
+        rectangleRenderer.drawFrame1(sb, baseX+1,baseY+1, baseHeight-2, Pico8Colors.BLACK);
+        rectangleRenderer.drawFrame1(sb, baseX+2,baseY+2, baseHeight-4, Pico8Colors.LIGHT_GRAY);
 
-        rectangleRenderer.drawFilled(sb, 3, 4+frameBottomMargin, App.WIDTH-6,App.HEIGHT-8-frameBottomMargin, Pico8Colors.BLACK);
-        rectangleRenderer.drawFilled(sb, 4, 3+frameBottomMargin, App.WIDTH-8,App.HEIGHT-6-frameBottomMargin, Pico8Colors.BLACK);
+        float brandFrameWidth = writer.getTextWith(App.BRAND) + 4;
+        float brandFrameX = App.MIDDLE_WIDHT-((brandFrameWidth)/2);
+        rectangleRenderer.drawFrame1(sb, brandFrameX,(App.HEIGHT/7)+1, 10, Pico8Colors.DARK_BLUE);
 
-        rectangleRenderer.drawFilled(sb, 4, 5+frameBottomMargin, App.WIDTH-8,App.HEIGHT-10-frameBottomMargin, Pico8Colors.LIGHT_GRAY);
-        rectangleRenderer.drawFilled(sb, 5, 4+frameBottomMargin, App.WIDTH-10,App.HEIGHT-8-frameBottomMargin, Pico8Colors.LIGHT_GRAY);
+        rectangleRenderer.drawFrame1(sb, App.WIDTH/6, -1, 20, Pico8Colors.BLACK);
+        rectangleRenderer.drawFrame1(sb, (App.WIDTH/6)+1, -1, 19, Pico8Colors.LIGHT_GRAY);
+        /* Frames */
 
-        writer.writeBorderShadow(sb, "billy goes to college", App.HEIGHT-7, Pico8Colors.RED, Pico8Colors.BLACK, Pico8Colors.DARK_PURPLE);
-        writer.write(sb, "ludum dare 44", App.HEIGHT-15, Pico8Colors.BLACK);
-        writer.writeShadow(sb, "rombosaur studios", App.HEIGHT-30, Pico8Colors.YELLOW, Pico8Colors.ORANGE);
+        int titleY = App.HEIGHT - 8;
+        int subtitleY = titleY - 10;
+        int rsY = (App.HEIGHT / 4) -4;
+        writer.writeBorderShadow(sb, App.TITLE, titleY, Pico8Colors.RED, Pico8Colors.BLACK, Pico8Colors.DARK_PURPLE);
+        writer.write(sb, App.SUB_TITLE, subtitleY, Pico8Colors.BLACK);
+        /* Explain controls here */
+        writer.writeShadow(sb, "press X to start", rsY+15, Pico8Colors.BLACK, Pico8Colors.WHITE);
+        writer.writeShadow(sb, App.BRAND, rsY, Pico8Colors.ORANGE, Pico8Colors.DARK_PURPLE);
+        writer.write(sb, App.VERSION, App.WIDTH-22, rsY+2, Pico8Colors.WHITE);
+
+        writer.writeShadow(sb, "buttons", 17, Pico8Colors.WHITE, Pico8Colors.BLACK);
+        writer.writeBorderShadow(sb, "O", (App.WIDTH/6)+5, 16, Pico8Colors.RED, Pico8Colors.BLACK, Pico8Colors.DARK_PURPLE);
+        writer.writeBorder(sb, "a/z", (App.WIDTH/6)+3, 7, Pico8Colors.RED, Pico8Colors.BLACK);
+
+        writer.writeBorderShadow(sb, "LRUD", 7, Pico8Colors.RED, Pico8Colors.BLACK, Pico8Colors.DARK_PURPLE);
+
+        int bspace = (App.WIDTH/2)+6;
+        writer.writeBorderShadow(sb, "X", bspace+(App.WIDTH/6)+5, 16, Pico8Colors.RED, Pico8Colors.BLACK, Pico8Colors.DARK_PURPLE);
+        writer.writeBorder(sb, "s/x", bspace+(App.WIDTH/6)+3, 7, Pico8Colors.RED, Pico8Colors.BLACK);
 
         sb.end();
     }
