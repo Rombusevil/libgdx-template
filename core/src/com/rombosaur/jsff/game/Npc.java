@@ -9,7 +9,7 @@ public class Npc extends SpriteActor {
         super(x, y, 16, 16,4 ,12, 7,0);
         createAnimation("idle", assets.findTextureRegion("hero_idle"), 16, 16, 0.3f, true);
         setAnimation("idle");
-        debugShape = true;
+        debugShape = false;
     }
 
     @Override

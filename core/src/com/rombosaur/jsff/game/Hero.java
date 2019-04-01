@@ -32,7 +32,7 @@ public class Hero extends SpriteActor {
         createAnimation("jump", assets.findTextureRegion("hero_jump"), 16, 16, 0.1f, false, j);
         setAnimation("idle");
 
-        debugShape = true;
+        debugShape = false;
     }
 
     @Override

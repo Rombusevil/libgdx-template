@@ -14,6 +14,7 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.math.Matrix4;
 import com.rombosaur.jsff.App;
 import com.rombosaur.jsff.assets.Assets;
+import com.rombosaur.jsff.util.Pico8Colors;
 
 /**
  * @author halfcutdev
@@ -25,7 +26,7 @@ public class LoadingScreen extends Screen {
     static final public int BAR_HEIGHT       =  2;
     static final public int BORDER_GAP       =  1;
     static final public int BORDER_THICKNESS =  1;
-    static final public Color BACKGROUND_COLOUR = Color.CHARTREUSE;
+    static final public Color BACKGROUND_COLOUR = Pico8Colors.DARK_BLUE;
 
     private AssetManager assets;
     private boolean loaded;
@@ -36,6 +37,7 @@ public class LoadingScreen extends Screen {
         assets.setLoader(TiledMap.class, new TmxMapLoader(new InternalFileHandleResolver()));
 
         assets.load("packed/textures.atlas", TextureAtlas.class);
+        loadMap("map/test2.tmx");
         loadFont("fonts/pico8_05.fnt");
     }
 

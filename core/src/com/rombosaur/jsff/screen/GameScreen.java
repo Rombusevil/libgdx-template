@@ -6,6 +6,10 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.maps.MapRenderer;
+import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.utils.Array;
 import com.rombosaur.jsff.App;
 import com.rombosaur.jsff.SpriteShapes.RectangleRenderer;
@@ -32,6 +36,10 @@ public class GameScreen extends Screen {
     private Texture heroFaceTx;
     private Array<Updateable> updateables;
     private Array<Drawable> drawables;
+    private TiledMap map;
+    private MapRenderer mapRenderer;
+    private TiledMapTileLayer walls;
+
 
     public GameScreen(App app) {
         super(app);
@@ -50,6 +58,9 @@ public class GameScreen extends Screen {
         this.updateables.add(h2);
         this.drawables.add(h2);
 
+        map = assets.getTiledMap("map/test2.tmx");
+        mapRenderer = new OrthogonalTiledMapRenderer(map);
+        walls = (TiledMapTileLayer) map.getLayers().get("walls");
 
         tb = new TextBubble(rectangleRenderer, 2, 90, 124, 19);
         heroFace = assets.findTextureRegion("hero_face");
@@ -67,40 +78,40 @@ public class GameScreen extends Screen {
         if (CollisionDetector.areColliding(h.boundingBox, h2.boundingBox)) {
             System.out.println("COLLIDE");
         }
+
+        getSceneCamera().position.x = h.getX();
+        getSceneCamera().position.y = h.getY();
+
+
     }
 
     @Override
     public void draw(SpriteBatch sb, ShapeRenderer sr) {
-
         sb.setProjectionMatrix(getSceneCamera().combined);
         sr.setProjectionMatrix(getSceneCamera().combined);
 
-        sb.begin();
-            //sb.draw(chobi, 10,10);
+        mapRenderer.setView(getSceneCamera());
+        mapRenderer.render();
 
+        sb.begin();
             for (Drawable d : drawables) {
                 d.drawSpriteBatch(sb);
             }
 
-            rectangleRenderer.drawBordered(sb, 10, 100, 50,25, 1, Color.VIOLET, Color.BLACK);
-            rectangleRenderer.drawFilled(sb, 30, 10, 10, 50, Color.GREEN);
-
-            int x = 10;
-            int y = 50;
-            textPrinter.write(sb, "Normal", x, y+20, Color.WHITE);
-            textPrinter.writeShadow(sb, "Shadowed", x, y, Color.WHITE, Color.BLUE);
-            textPrinter.writeBorder(sb, "Bold", x, y+10, Color.WHITE, Color.BLUE);
-
+            /*
             int textHeight = 6;
-            /*Line 1*/ textPrinter.write(sb, "ut semper elementum metus ac sa", 2, textHeight*3, Color.WHITE);
-            /*Line 2*/ textPrinter.write(sb, "ut semper elementum metus ac sa", 2, textHeight*2, Color.WHITE);
-            /*Line 3*/ textPrinter.write(sb, "ut semper elementum metus ac sa", 2, textHeight, Color.WHITE);
+            /*Line 1* / textPrinter.write(sb, "ut semper elementum metus ac sa", 2, textHeight*3, Color.WHITE);
+            /*Line 2* / textPrinter.write(sb, "ut semper elementum metus ac sa", 2, textHeight*2, Color.WHITE);
+            /*Line 3* / textPrinter.write(sb, "ut semper elementum metus ac sa", 2, textHeight, Color.WHITE);
+            */
 
+            /*
             tb.draw(sb, textPrinter,
                     "are you ready for the summer?" +
                         "\nare you ready for some fun?" +
                         "\nare you ready for the na na na",
                     Color.RED, Color.SLATE, timotyFace);
+            */
 
         sb.end();
 
