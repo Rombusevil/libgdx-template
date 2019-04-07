@@ -5,7 +5,11 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.rombosaur.jsff.screen.LoadingScreen;
+import com.rombosaur.jsff.screen.InstantiateClass;
+import com.rombosaur.jsff.screen.MainMenuScreen;
+import com.rombosaur.jsff.screen.Screen;
+import com.rombosaur.jsff.screen.loader.Loader;
+import com.rombosaur.jsff.screen.loader.LoadingScreen;
 
 public class App extends Game {
     static final public String TITLE = "game title abc dfg";
@@ -14,6 +18,7 @@ public class App extends Game {
     static final public String VERSION = "v0.1";
     static final public int WIDTH  = 128; //800;
     static final public int HEIGHT = 128; //450;
+    static final public int TILE_SIZE = 8;
     static final public int SCALE  = 5;
     static final public int MIDDLE_WIDHT  = WIDTH / 2;
     static final public int MIDDLE_HEIGHT = HEIGHT / 2;
@@ -29,7 +34,16 @@ public class App extends Game {
         sb = new SpriteBatch();
         sr = new ShapeRenderer();
         sr.setAutoShapeType(true);
-        setScreen(new LoadingScreen(this));
+        final App self = this;
+
+        InstantiateClass mmScreen = new InstantiateClass() {
+            @Override
+            public Screen newInstance() {
+                return new MainMenuScreen(self);
+            }
+        };
+
+        setScreen(new LoadingScreen(this, mmScreen,null));
     }
 
     @Override

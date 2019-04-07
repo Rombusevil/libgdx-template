@@ -1,10 +1,16 @@
 package com.rombosaur.jsff.util;
 
 import com.badlogic.gdx.math.Rectangle;
+import com.rombosaur.jsff.engine.Actor;
 
+/**
+ * @author rombus
+ * @since 07/04/2019
+ */
 public class CollisionDetector {
 
     public static boolean areColliding(Rectangle rec1, Rectangle rec2){
+        /*
         float topEdge1 = rec1.y + rec1.height;
         float rightEdge1 = rec1.x + rec1.width;
         float leftEdge1 = rec1.x;
@@ -15,8 +21,11 @@ public class CollisionDetector {
         float bottomEdge2 = rec2.y;
 
         if( leftEdge1 < rightEdge2 && rightEdge1 > leftEdge2 && bottomEdge1 < topEdge2 && topEdge1 > bottomEdge2){
-            return true;
-        }
-        return false;
+        */
+        return rec1.overlaps(rec2);
+    }
+
+    public static boolean areActorsColliding(Actor a1, Actor a2){
+        return a1.boundingBox.overlaps(a2.boundingBox);
     }
 }

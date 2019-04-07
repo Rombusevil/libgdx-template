@@ -16,7 +16,7 @@ import com.rombosaur.jsff.App;
 import static com.rombosaur.jsff.App.WIDTH;
 import static com.rombosaur.jsff.App.HEIGHT;
 import static com.rombosaur.jsff.App.SCALE;
-import static com.rombosaur.jsff.screen.LoadingScreen.*;
+import static com.rombosaur.jsff.screen.loader.LoadingScreen.*;
 
 public class HtmlLauncher extends GwtApplication {
 

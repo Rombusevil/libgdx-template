@@ -13,25 +13,20 @@ import com.badlogic.gdx.utils.Array;
 import com.rombosaur.jsff.App;
 import com.rombosaur.jsff.SpriteShapes.RectangleRenderer;
 import com.rombosaur.jsff.assets.Assets;
-import com.rombosaur.jsff.game.Hero;
-import com.rombosaur.jsff.game.Npc;
 import com.rombosaur.jsff.engine.Drawable;
 import com.rombosaur.jsff.engine.Updateable;
-import com.rombosaur.jsff.screen.loader.Loader;
+import com.rombosaur.jsff.game.Hero;
+import com.rombosaur.jsff.game.Npc;
 import com.rombosaur.jsff.screen.loader.LoadingScreen;
-import com.rombosaur.jsff.screen.transition.TransitionScreen;
-import com.rombosaur.jsff.text.TextWriter;
 import com.rombosaur.jsff.text.TextBubble;
+import com.rombosaur.jsff.text.TextWriter;
 import com.rombosaur.jsff.util.CollisionDetector;
 
 /**
- * @author halfcutdev
- * @since 22/12/2017
- *
  * @author rombus
  * @since 07/04/2019
  */
-public class GameScreen extends Screen {
+public class GameScreen2 extends Screen {
     private RectangleRenderer rectangleRenderer;
     private TextWriter textPrinter;
     private Hero h;
@@ -46,7 +41,7 @@ public class GameScreen extends Screen {
     private TiledMapTileLayer walls;
 
 
-    public GameScreen(App app) {
+    public GameScreen2(App app) {
         super(app);
         Assets assets = Assets.get();
         System.out.println(assets.getAssetManager().getAssetNames());
@@ -63,7 +58,7 @@ public class GameScreen extends Screen {
         this.updateables.add(h2);
         this.drawables.add(h2);
 
-        map = assets.getTiledMap("map/test2.tmx");
+        map = assets.getTiledMap("map/test.tmx");
         mapRenderer = new OrthogonalTiledMapRenderer(map);
         walls = (TiledMapTileLayer) map.getLayers().get("walls");
 
@@ -82,24 +77,7 @@ public class GameScreen extends Screen {
         }
         if (CollisionDetector.areColliding(h.boundingBox, h2.boundingBox)) {
             System.out.println("COLLIDE");
-            setScreen(new LoadingScreen(app, new InstantiateClass() {
-                @Override
-                public Screen newInstance() {
-                    return new GameScreen2(app);
-                }
-            }, new Loader() {
-                @Override
-                public void load(LoadingScreen loadingScreen) {
-                    loadingScreen.loadMap("map/test.tmx");
-                }
-            }));
         }
-        TiledMapTileLayer.Cell w = walls.getCell((int)h.getX()/App.TILE_SIZE, (int)h.getY()/App.TILE_SIZE);
-        if(w == null) {
-            getSceneCamera().position.x = h.getX();
-            getSceneCamera().position.y = h.getY();
-        }
-
     }
 
     @Override
@@ -114,32 +92,10 @@ public class GameScreen extends Screen {
             for (Drawable d : drawables) {
                 d.drawSpriteBatch(sb);
             }
-
-            /*
-            int textHeight = 6;
-            /*Line 1* / textPrinter.write(sb, "ut semper elementum metus ac sa", 2, textHeight*3, Color.WHITE);
-            /*Line 2* / textPrinter.write(sb, "ut semper elementum metus ac sa", 2, textHeight*2, Color.WHITE);
-            /*Line 3* / textPrinter.write(sb, "ut semper elementum metus ac sa", 2, textHeight, Color.WHITE);
-            */
-
-            /*
-            tb.draw(sb, textPrinter,
-                    "are you ready for the summer?" +
-                        "\nare you ready for some fun?" +
-                        "\nare you ready for the na na na",
-                    Color.RED, Color.SLATE, timotyFace);
-            */
-
         sb.end();
 
         // Draw the box
         sr.begin(ShapeRenderer.ShapeType.Line);
-            /*
-            sr.setColor(Color.VIOLET);
-            sr.line(0,0,127,127);
-            sr.setColor(Color.YELLOW);
-            sr.rect(100,100, 27,27);
-            */
             for(Drawable d: drawables){
                 d.drawShapeRenderer(sr);
             }

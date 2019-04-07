@@ -21,6 +21,9 @@ import static com.rombosaur.jsff.App.WIDTH;
 /**
  * @author halfcutdev
  * @since 22/12/2017
+ *
+ * @author rombus
+ * @since 07/04/2019
  */
 public abstract class Screen implements com.badlogic.gdx.Screen {
 
@@ -92,6 +95,10 @@ public abstract class Screen implements com.badlogic.gdx.Screen {
 
     public void transitionToScreen(Screen next) {
         app.setScreen(new TransitionScreen(app, this, next));
+    }
+
+    public void setScreen(Screen next) {
+        app.setScreen(next);
     }
 
     @Override

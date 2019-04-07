@@ -1,4 +1,4 @@
-package com.rombosaur.jsff.screen;
+package com.rombosaur.jsff.screen.loader;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
@@ -14,11 +14,16 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.math.Matrix4;
 import com.rombosaur.jsff.App;
 import com.rombosaur.jsff.assets.Assets;
+import com.rombosaur.jsff.screen.InstantiateClass;
+import com.rombosaur.jsff.screen.Screen;
 import com.rombosaur.jsff.util.Pico8Colors;
 
 /**
  * @author halfcutdev
  * @since 22/12/2017
+ *
+ * @author rombus
+ * @since 07/04/2019
  */
 public class LoadingScreen extends Screen {
 
@@ -29,16 +34,19 @@ public class LoadingScreen extends Screen {
     static final public Color BACKGROUND_COLOUR = Pico8Colors.DARK_BLUE;
 
     private AssetManager assets;
+    private InstantiateClass nextScreen;
     private boolean loaded;
 
-    public LoadingScreen(App app) {
+    public LoadingScreen(App app, InstantiateClass nextScreenInstantiator, Loader loader) {
         super(app);
-        assets = new AssetManager();
-        assets.setLoader(TiledMap.class, new TmxMapLoader(new InternalFileHandleResolver()));
+        this.nextScreen = nextScreenInstantiator;
+        this.assets = new AssetManager();
+        this.assets.setLoader(TiledMap.class, new TmxMapLoader(new InternalFileHandleResolver()));
 
-        assets.load("packed/textures.atlas", TextureAtlas.class);
-        loadMap("map/test2.tmx");
-        loadFont("fonts/pico8_05.fnt");
+        this.assets.load("packed/textures.atlas", TextureAtlas.class);
+        this.loadFont("fonts/pico8_05.fnt");
+
+        if(loader != null)  loader.load(this);
     }
 
     @Override
@@ -47,7 +55,7 @@ public class LoadingScreen extends Screen {
             Assets.get().provide(assets);
             if(!loaded) {
                 loaded = true;
-                transitionToScreen(new MainMenuScreen(app));
+                transitionToScreen(nextScreen.newInstance());
             }
         }
     }
@@ -104,16 +112,22 @@ public class LoadingScreen extends Screen {
         sr.end();
     }
 
-    private void loadFont(String ref) {
+    @Override
+    public void dispose() {
+        super.dispose();
+        assets.dispose();
+    }
+
+    public void loadFont(String ref) {
         assets.load(ref, BitmapFont.class);
     }
-    private void loadMap(String ref) {
+    public void loadMap(String ref) {
         assets.load(ref, TiledMap.class);
     }
-    private void loadSFX(String ref) {
+    public void loadSFX(String ref) {
         assets.load(ref, Sound.class);
     }
-    private void loadTexture(String ref) {
+    public void loadTexture(String ref) {
         assets.load(ref, Texture.class);
     }
 }
