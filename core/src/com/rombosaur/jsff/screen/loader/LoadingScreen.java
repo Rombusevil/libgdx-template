@@ -2,10 +2,7 @@ package com.rombosaur.jsff.screen.loader;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -14,7 +11,6 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.math.Matrix4;
 import com.rombosaur.jsff.App;
 import com.rombosaur.jsff.assets.Assets;
-import com.rombosaur.jsff.screen.InstantiateClass;
 import com.rombosaur.jsff.screen.Screen;
 import com.rombosaur.jsff.util.Pico8Colors;
 
@@ -33,26 +29,28 @@ public class LoadingScreen extends Screen {
     static final public int BORDER_THICKNESS =  1;
     static final public Color BACKGROUND_COLOUR = Pico8Colors.DARK_BLUE;
 
-    private AssetManager assets;
-    private InstantiateClass nextScreen;
+    private AssetManager assetsManager;
+    private ScreenInstanceDefer nextScreen;
+    private LoaderUtils loaderUtils;
     private boolean loaded;
 
-    public LoadingScreen(App app, InstantiateClass nextScreenInstantiator, Loader loader) {
+    public LoadingScreen(App app, ScreenInstanceDefer nextScreenInstantiator, Loader loader) {
         super(app);
         this.nextScreen = nextScreenInstantiator;
-        this.assets = new AssetManager();
-        this.assets.setLoader(TiledMap.class, new TmxMapLoader(new InternalFileHandleResolver()));
+        this.assetsManager = new AssetManager();
+        this.loaderUtils = new LoaderUtils(this.assetsManager);
+        this.assetsManager.setLoader(TiledMap.class, new TmxMapLoader(new InternalFileHandleResolver()));
 
-        this.assets.load("packed/textures.atlas", TextureAtlas.class);
-        this.loadFont("fonts/pico8_05.fnt");
+        this.assetsManager.load("packed/textures.atlas", TextureAtlas.class);
+        loaderUtils.loadFont("fonts/pico8_05.fnt");
 
-        if(loader != null)  loader.load(this);
+        if(loader != null)  loader.load(this.loaderUtils);
     }
 
     @Override
     public void update(float delta) {
-        if(assets.update()) {
-            Assets.get().provide(assets);
+        if(assetsManager.update()) {
+            Assets.get().provide(assetsManager);
             if(!loaded) {
                 loaded = true;
                 transitionToScreen(nextScreen.newInstance());
@@ -100,9 +98,9 @@ public class LoadingScreen extends Screen {
 
             // If in HTML mode, start the loading bar from 50% progress so it appears to continue from the splash screen.
             if(App.mode == App.Mode.HTML) {
-                width = (1 + assets.getProgress()) * (width * 0.5f);
+                width = (1 + assetsManager.getProgress()) * (width * 0.5f);
             } else {
-                width = assets.getProgress() * width;
+                width = assetsManager.getProgress() * width;
             }
 
             // Draw the bar.
@@ -115,19 +113,6 @@ public class LoadingScreen extends Screen {
     @Override
     public void dispose() {
         super.dispose();
-        assets.dispose();
-    }
-
-    public void loadFont(String ref) {
-        assets.load(ref, BitmapFont.class);
-    }
-    public void loadMap(String ref) {
-        assets.load(ref, TiledMap.class);
-    }
-    public void loadSFX(String ref) {
-        assets.load(ref, Sound.class);
-    }
-    public void loadTexture(String ref) {
-        assets.load(ref, Texture.class);
+        assetsManager.dispose();
     }
 }

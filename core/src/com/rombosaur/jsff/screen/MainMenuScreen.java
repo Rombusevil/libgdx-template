@@ -7,7 +7,9 @@ import com.rombosaur.jsff.App;
 import com.rombosaur.jsff.SpriteShapes.RectangleRenderer;
 import com.rombosaur.jsff.assets.Assets;
 import com.rombosaur.jsff.screen.loader.Loader;
+import com.rombosaur.jsff.screen.loader.LoaderUtils;
 import com.rombosaur.jsff.screen.loader.LoadingScreen;
+import com.rombosaur.jsff.screen.loader.ScreenInstanceDefer;
 import com.rombosaur.jsff.text.TextWriter;
 import com.rombosaur.jsff.util.Gamepad;
 import com.rombosaur.jsff.util.Pico8Colors;
@@ -33,17 +35,17 @@ public class MainMenuScreen extends Screen {
     @Override
     public void update(float delta) {
         if (Gamepad.isButtonXPressed()) {
-            setScreen(new LoadingScreen(app,
-                new InstantiateClass() {
-                    @Override
-                    public Screen newInstance() {
-                        return new GameScreen(app);
-                    }
-                },
+            ScreenInstanceDefer gs = new ScreenInstanceDefer() {
+                @Override public Screen newInstance() {
+                    return new GameScreen(app);
+                }
+            };
+
+            transitionToScreen(new LoadingScreen(app, gs,
                 new Loader() {
                     @Override
-                    public void load(LoadingScreen loadingScreen) {
-                        loadingScreen.loadMap("map/test2.tmx");
+                    public void load(LoaderUtils loaderUtils) {
+                        loaderUtils.loadMap("map/test2.tmx");
                     }
                 }
             ));
@@ -68,11 +70,11 @@ public class MainMenuScreen extends Screen {
         rectangleRenderer.drawFrame1(sb, baseX+2,baseY+2, baseHeight-4, Pico8Colors.LIGHT_GRAY);
 
         float brandFrameWidth = writer.getTextWith(App.BRAND) + 4;
-        float brandFrameX = App.MIDDLE_WIDHT-((brandFrameWidth)/2);
-        rectangleRenderer.drawFrame1(sb, brandFrameX,(App.HEIGHT/7)+1, 10, Pico8Colors.DARK_BLUE);
+        float brandFrameX = App.MIDDLE_WIDTH -((brandFrameWidth)/2);
+        rectangleRenderer.drawFrame1(sb, brandFrameX,((float)App.HEIGHT/7)+1, 10, Pico8Colors.DARK_BLUE);
 
-        rectangleRenderer.drawFrame1(sb, App.WIDTH/6, -1, 20, Pico8Colors.BLACK);
-        rectangleRenderer.drawFrame1(sb, (App.WIDTH/6)+1, -1, 19, Pico8Colors.LIGHT_GRAY);
+        rectangleRenderer.drawFrame1(sb, (float)App.WIDTH/6, -1, 20, Pico8Colors.BLACK);
+        rectangleRenderer.drawFrame1(sb, ((float)App.WIDTH/6)+1, -1, 19, Pico8Colors.LIGHT_GRAY);
         /* Frames */
 
         int titleY = App.HEIGHT - 8;

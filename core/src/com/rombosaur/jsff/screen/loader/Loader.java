@@ -8,5 +8,5 @@ package com.rombosaur.jsff.screen.loader;
  * Load all the needed assets in `load()` method.
  */
 public interface Loader {
-    void load(LoadingScreen loadingScreen);
+    void load(LoaderUtils loaderUtils);
 }

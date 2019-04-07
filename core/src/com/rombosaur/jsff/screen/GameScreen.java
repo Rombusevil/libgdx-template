@@ -18,8 +18,9 @@ import com.rombosaur.jsff.game.Npc;
 import com.rombosaur.jsff.engine.Drawable;
 import com.rombosaur.jsff.engine.Updateable;
 import com.rombosaur.jsff.screen.loader.Loader;
+import com.rombosaur.jsff.screen.loader.LoaderUtils;
 import com.rombosaur.jsff.screen.loader.LoadingScreen;
-import com.rombosaur.jsff.screen.transition.TransitionScreen;
+import com.rombosaur.jsff.screen.loader.ScreenInstanceDefer;
 import com.rombosaur.jsff.text.TextWriter;
 import com.rombosaur.jsff.text.TextBubble;
 import com.rombosaur.jsff.util.CollisionDetector;
@@ -82,15 +83,15 @@ public class GameScreen extends Screen {
         }
         if (CollisionDetector.areColliding(h.boundingBox, h2.boundingBox)) {
             System.out.println("COLLIDE");
-            setScreen(new LoadingScreen(app, new InstantiateClass() {
+            setScreen(new LoadingScreen(app, new ScreenInstanceDefer() {
                 @Override
                 public Screen newInstance() {
                     return new GameScreen2(app);
                 }
             }, new Loader() {
                 @Override
-                public void load(LoadingScreen loadingScreen) {
-                    loadingScreen.loadMap("map/test.tmx");
+                public void load(LoaderUtils loaderUtils) {
+                    loaderUtils.loadMap("map/test.tmx");
                 }
             }));
         }

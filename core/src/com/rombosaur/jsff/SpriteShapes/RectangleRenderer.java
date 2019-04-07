@@ -6,6 +6,10 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.rombosaur.jsff.App;
 import com.rombosaur.jsff.assets.Assets;
 
+/**
+ * @author rombus
+ * @since 30/03/2019
+ */
 public class RectangleRenderer {
     private TextureRegion pixel;
 
@@ -14,6 +18,7 @@ public class RectangleRenderer {
         this.pixel = assets.findTextureRegion("pixel");
     }
 
+    @SuppressWarnings("Duplicates")
     public void drawFilled(SpriteBatch sb, float x, float y, int width, int height, Color color){
         Color prevColor = sb.getColor();
         sb.setColor(color);
@@ -21,16 +26,29 @@ public class RectangleRenderer {
         sb.setColor(prevColor);
     }
 
+    @SuppressWarnings("Duplicates")
     public void drawBordered(SpriteBatch sb, float x, float y, int width, int height, int borderWidth, Color color, Color borderColor){
         Color prevColor = sb.getColor();
         sb.setColor(borderColor);
         sb.draw(this.pixel, x, y, width, height);
         sb.setColor(color);
+
         int twiceBorderWidth = borderWidth*2;
         sb.draw(this.pixel, x+borderWidth, y+borderWidth, width-twiceBorderWidth, height-twiceBorderWidth);
         sb.setColor(prevColor);
     }
 
+    /**
+     * Draws 2 rectangles offseted by 1 pixel.
+     * That way it misses 1 pixel in every corner.
+     *
+     *           xxx
+     *          xxxxx
+     *          xxxxx
+     *          xxxxx
+     *           xxx
+     *
+     */
     public void drawFrame1(SpriteBatch sb, float x, float y, int height, Color color) {
         drawFilled(sb, x, y, (int)(App.WIDTH-(x*2)), height, color);
         x = x-1;

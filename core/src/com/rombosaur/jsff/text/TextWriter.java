@@ -27,7 +27,7 @@ public class TextWriter {
     }
     public void write(SpriteBatch sb, String text, int y, Color color) {
         float textMiddle = this.getTextWith(text) / 2;
-        float x = App.MIDDLE_WIDHT - textMiddle;
+        float x = App.MIDDLE_WIDTH - textMiddle;
         this.write(sb, text, (int)x, y, color);
     }
 
@@ -50,7 +50,7 @@ public class TextWriter {
     }
     public void writeBorder(SpriteBatch sb, String text, int y, Color foregroundColor, Color borderColor) {
         float textMiddle = this.getTextWith(text) / 2;
-        float x = App.MIDDLE_WIDHT - textMiddle;
+        float x = App.MIDDLE_WIDTH - textMiddle;
         this.writeBorder(sb, text, (int)x, y, foregroundColor, borderColor);
     }
 
@@ -63,7 +63,7 @@ public class TextWriter {
     }
     public void writeShadow(SpriteBatch sb, String text, int y, Color foregroundColor, Color shadowColor) {
         float textMiddle = this.getTextWith(text) / 2;
-        float x = App.MIDDLE_WIDHT - textMiddle;
+        float x = App.MIDDLE_WIDTH - textMiddle;
         this.writeShadow(sb, text, (int)x, y, foregroundColor, shadowColor);
     }
 
@@ -77,7 +77,7 @@ public class TextWriter {
     }
     public void writeBorderShadow(SpriteBatch sb, String text, int y, Color foregroundColor, Color backgroundColor, Color shadowColor) {
         float textMiddle = this.getTextWith(text) / 2;
-        float x = App.MIDDLE_WIDHT - textMiddle;
+        float x = App.MIDDLE_WIDTH - textMiddle;
         this.writeBorderShadow(sb, text, (int)x, y, foregroundColor, backgroundColor, shadowColor);
     }
 

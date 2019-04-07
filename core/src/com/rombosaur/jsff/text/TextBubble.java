@@ -9,7 +9,7 @@ import com.rombosaur.jsff.assets.Assets;
 
 public class TextBubble {
     private static final int HEAD_SIZE = 32;
-    private static final int HEAD_POS_X = App.MIDDLE_WIDHT - (HEAD_SIZE / 2);
+    private static final int HEAD_POS_X = App.MIDDLE_WIDTH - (HEAD_SIZE / 2);
     private static final int HEAD_POS_Y = (int)(App.HEIGHT - (App.HEIGHT / 3f));
     private static final int ALLOWED_TEXT_ROWS = 3;
 

@@ -17,7 +17,6 @@ import com.rombosaur.jsff.engine.Drawable;
 import com.rombosaur.jsff.engine.Updateable;
 import com.rombosaur.jsff.game.Hero;
 import com.rombosaur.jsff.game.Npc;
-import com.rombosaur.jsff.screen.loader.LoadingScreen;
 import com.rombosaur.jsff.text.TextBubble;
 import com.rombosaur.jsff.text.TextWriter;
 import com.rombosaur.jsff.util.CollisionDetector;
@@ -78,6 +77,9 @@ public class GameScreen2 extends Screen {
         if (CollisionDetector.areColliding(h.boundingBox, h2.boundingBox)) {
             System.out.println("COLLIDE");
         }
+
+        getSceneCamera().position.x = h.getX();
+        getSceneCamera().position.y = h.getY();
     }
 
     @Override

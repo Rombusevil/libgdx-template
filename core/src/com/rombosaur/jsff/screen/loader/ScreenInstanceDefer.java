@@ -1,4 +1,6 @@
-package com.rombosaur.jsff.screen;
+package com.rombosaur.jsff.screen.loader;
+
+import com.rombosaur.jsff.screen.Screen;
 
 /**
  * @author rombus
@@ -6,6 +8,6 @@ package com.rombosaur.jsff.screen;
  *
  * This interface is used for creating classes that defer the instantiation of a screen.
  */
-public interface InstantiateClass {
+public interface ScreenInstanceDefer {
     Screen newInstance();
 }

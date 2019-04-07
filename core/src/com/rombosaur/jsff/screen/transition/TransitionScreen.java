@@ -27,8 +27,8 @@ public class TransitionScreen extends Screen {
         super(app);
         this.prevScreen = prevScreen;
         this.nextScreen = nextScreen;
-        this.outEffect = new SwipeOutEffect(50000);
-        this.inEffect  = new SwipeInEffect(50000);
+        this.outEffect = new SwipeOutEffect(15000);
+        this.inEffect  = new SwipeInEffect(15000);
         this.currentState = TransitionState.OUT;
     }
 
