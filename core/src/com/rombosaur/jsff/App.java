@@ -5,10 +5,10 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.rombosaur.jsff.screen.MainMenuScreen;
-import com.rombosaur.jsff.screen.Screen;
-import com.rombosaur.jsff.screen.loader.LoadingScreen;
-import com.rombosaur.jsff.screen.loader.ScreenInstanceDefer;
+import com.rombosaur.jsff.screens.MainMenuScreen;
+import com.rombosaur.jsff.engine.screen.Screen;
+import com.rombosaur.jsff.engine.screen.loader.LoadingScreen;
+import com.rombosaur.jsff.engine.screen.loader.ScreenInstanceDefer;
 
 public class App extends Game {
     static final public String TITLE = "game title abc dfg";
