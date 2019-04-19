@@ -1,3 +1,11 @@
+I'm adapting the template for use in LD jams, making it behave similarly to the Super Fast Framework for Pico 8.
+It'll include:
+1. predefined screens (Title, Game Over, Win Screen, ...)
+1. Pico 8 font, screen resolution and color palette
+1. Simple colission detection
+1. Tiled integration (pending)
+1. Tweening Library (pending)
+
 # libGDX template
 
 Starter project for libGDX featuring easy asset loading and a scaled pixel-art effect. Supports both desktop and html distributions, making it perfect for Game Jams.
