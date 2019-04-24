@@ -9,6 +9,8 @@ import com.rombosaur.jsff.engine.utils.Gamepad;
 
 public class Hero extends SpriteActor {
     private boolean jumping = false;
+    private float gravity = 5;
+    public boolean grounded = false;
 
     private class JumpAnimationFinished extends AnimationFinishedCallback {
         public Hero hero;
@@ -67,6 +69,9 @@ public class Hero extends SpriteActor {
 
 
         if(!jumping){
+            float curY = getY();
+            if(!this.grounded) setY(getY()-this.gravity);
+
             if (l || r || d || u) {
                 setAnimation("run");
             } else {

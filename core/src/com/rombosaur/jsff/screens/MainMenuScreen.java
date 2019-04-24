@@ -46,7 +46,7 @@ public class MainMenuScreen extends Screen {
                 new Loader() {
                     @Override
                     public void load(LoaderUtils loaderUtils) {
-                        loaderUtils.loadMap("map/test2.tmx");
+                        loaderUtils.loadMap("map/plat1.tmx");
                     }
                 }
             ));

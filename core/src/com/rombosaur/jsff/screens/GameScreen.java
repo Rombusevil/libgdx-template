@@ -5,26 +5,26 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.MapRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.utils.Array;
 import com.rombosaur.jsff.App;
-import com.rombosaur.jsff.engine.utils.RectangleRenderer;
-import com.rombosaur.jsff.engine.assets.Assets;
-import com.rombosaur.jsff.engine.screen.Screen;
-import com.rombosaur.jsff.gobjects.Hero;
-import com.rombosaur.jsff.gobjects.Npc;
 import com.rombosaur.jsff.engine.actor.Drawable;
 import com.rombosaur.jsff.engine.actor.Updateable;
+import com.rombosaur.jsff.engine.assets.Assets;
+import com.rombosaur.jsff.engine.screen.Screen;
 import com.rombosaur.jsff.engine.screen.loader.Loader;
 import com.rombosaur.jsff.engine.screen.loader.LoaderUtils;
 import com.rombosaur.jsff.engine.screen.loader.LoadingScreen;
 import com.rombosaur.jsff.engine.screen.loader.ScreenInstanceDefer;
-import com.rombosaur.jsff.engine.text.TextWriter;
 import com.rombosaur.jsff.engine.text.TextBubble;
+import com.rombosaur.jsff.engine.text.TextWriter;
 import com.rombosaur.jsff.engine.utils.CollisionDetector;
+import com.rombosaur.jsff.engine.utils.RectangleRenderer;
+import com.rombosaur.jsff.gobjects.Hero;
+import com.rombosaur.jsff.gobjects.Npc;
 
 /**
  * @author halfcutdev
@@ -45,7 +45,7 @@ public class GameScreen extends Screen {
     private Array<Drawable> drawables;
     private TiledMap map;
     private MapRenderer mapRenderer;
-    private TiledMapTileLayer walls;
+    private MapObjects platforms;
 
 
     public GameScreen(App app) {
@@ -65,9 +65,9 @@ public class GameScreen extends Screen {
         this.updateables.add(h2);
         this.drawables.add(h2);
 
-        map = assets.getTiledMap("map/test2.tmx");
+        map = assets.getTiledMap("map/plat1.tmx");
         mapRenderer = new OrthogonalTiledMapRenderer(map);
-        walls = (TiledMapTileLayer) map.getLayers().get("walls");
+        platforms = map.getLayers().get("platforms").getObjects();
 
         tb = new TextBubble(rectangleRenderer, 2, 90, 124, 19);
         heroFace = assets.findTextureRegion("hero_face");
@@ -96,12 +96,20 @@ public class GameScreen extends Screen {
                 }
             }));
         }
-        TiledMapTileLayer.Cell w = walls.getCell((int)h.getX()/App.TILE_SIZE, (int)h.getY()/App.TILE_SIZE);
-        if(w == null) {
-            getSceneCamera().position.x = h.getX();
-            getSceneCamera().position.y = h.getY();
+
+        /*
+        TiledMapTileLayer.Cell p = platforms.getCell((int)h.getX()/App.TILE_SIZE, (int)h.getY()/App.TILE_SIZE);
+
+        for (MapObject plat: platforms) {
+            //plat.getProperties().
+        }
+        if(p != null) {
+            h.grounded = true;
+        } else {
+            h.grounded = false;
         }
 
+         */
     }
 
     @Override
